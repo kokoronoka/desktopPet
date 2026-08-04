@@ -68,17 +68,21 @@ function isOnScreen({ x, y }) {
 function startPosition() {
   const saved = state.position;
   if (saved && Number.isFinite(saved.x) && Number.isFinite(saved.y) && isOnScreen(saved)) {
-    return saved;
+    // Round in case state.json was hand-edited — window coords must be whole.
+    return { x: Math.round(saved.x), y: Math.round(saved.y) };
   }
   return defaultPosition();
 }
 
+// Always returns whole pixels: setPosition() takes integers and throws
+// "conversion failure" on a fractional value. Both callers can produce
+// fractions — a randomised walk distance, or drag deltas on a scaled display.
 function clampToDisplay(x, y) {
   const bounds = { x, y, width: WINDOW_SIZE.width, height: WINDOW_SIZE.height };
   const { workArea } = screen.getDisplayMatching(bounds);
   return {
-    x: Math.min(Math.max(x, workArea.x), workArea.x + workArea.width - WINDOW_SIZE.width),
-    y: Math.min(Math.max(y, workArea.y), workArea.y + workArea.height - WINDOW_SIZE.height)
+    x: Math.round(Math.min(Math.max(x, workArea.x), workArea.x + workArea.width - WINDOW_SIZE.width)),
+    y: Math.round(Math.min(Math.max(y, workArea.y), workArea.y + workArea.height - WINDOW_SIZE.height))
   };
 }
 
@@ -217,6 +221,12 @@ function walk(requestedDistance = 160) {
       return;
     }
 
+    // The renderer passes a randomised (fractional) distance, and this value
+    // feeds window coordinates, so normalise it before doing any maths.
+    const requested = Number.isFinite(requestedDistance)
+      ? Math.round(Math.abs(requestedDistance))
+      : 160;
+
     const [startX, startY] = mainWindow.getPosition();
     const { workArea } = screen.getDisplayMatching({
       x: startX,
@@ -234,7 +244,7 @@ function walk(requestedDistance = 160) {
     else if (direction === -1 && roomLeft < 40) direction = 1;
 
     const available = direction === 1 ? roomRight : roomLeft;
-    const distance = Math.min(requestedDistance, Math.max(available, 0));
+    const distance = Math.min(requested, Math.max(available, 0));
     if (distance < 20) {
       resolve(null);
       return;

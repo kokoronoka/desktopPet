@@ -153,10 +153,16 @@ function scheduleRandomWalk() {
     }
 
     setSpriteState('walking');
-    // Resolves once the main process has finished moving the window; null
-    // means it declined (e.g. hidden, or already up against the screen edge).
-    const direction = await window.petAPI.walk(120 + Math.random() * 160);
-    if (direction === null) petEl.style.setProperty('--facing', '1');
+    try {
+      // Resolves once the main process has finished moving the window; null
+      // means it declined (e.g. hidden, or already up against the screen edge).
+      const direction = await window.petAPI.walk(120 + Math.random() * 160);
+      if (direction === null) petEl.style.setProperty('--facing', '1');
+    } catch (err) {
+      // A failed walk must never end the loop — without this, one rejected
+      // call would leave the pet stuck mid-stride for the rest of the session.
+      console.error('Walk failed:', err);
+    }
     if (!isDragging) setSpriteState('idle');
     scheduleRandomWalk();
   }, delay);
