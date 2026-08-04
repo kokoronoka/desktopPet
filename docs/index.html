@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Desktop Pet — a little friend for your desktop</title>
+<meta name="description" content="A small animated pet that floats over your whole desktop. Free and open source, for Windows." />
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --accent: #f0a04b;
+    --text: #f4f1ee;
+    --text-dim: #a8a29d;
+    --card: rgba(255, 255, 255, 0.05);
+    --border: rgba(255, 255, 255, 0.1);
+  }
+
+  body {
+    background: radial-gradient(circle at 50% 0%, #2a2438 0%, #16141d 55%) no-repeat;
+    background-color: #16141d;
+    color: var(--text);
+    font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
+    line-height: 1.6;
+    min-height: 100vh;
+  }
+
+  .wrap { max-width: 720px; margin: 0 auto; padding: 64px 24px 80px; }
+
+  /* ---------- Hero ---------- */
+  .hero { text-align: center; }
+
+  .icon {
+    width: 112px; height: 112px;
+    image-rendering: -webkit-optimize-contrast;
+    animation: bob 2.6s ease-in-out infinite;
+  }
+
+  @keyframes bob {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-8px); }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .icon { animation: none; }
+  }
+
+  h1 { font-size: 40px; letter-spacing: -0.5px; margin-top: 12px; }
+
+  .tagline {
+    color: var(--text-dim);
+    font-size: 17px;
+    margin: 10px auto 0;
+    max-width: 460px;
+  }
+
+  /* ---------- Download ---------- */
+  .download {
+    display: inline-block;
+    margin-top: 28px;
+    padding: 15px 36px;
+    background: var(--accent);
+    border-radius: 12px;
+    color: #241a10;
+    font-size: 17px;
+    font-weight: 700;
+    text-decoration: none;
+    transition: filter 0.15s ease, transform 0.1s ease;
+  }
+
+  .download:hover { filter: brightness(1.08); }
+  .download:active { transform: scale(0.985); }
+
+  .meta { margin-top: 10px; font-size: 13px; color: var(--text-dim); }
+
+  /* ---------- Blocks ---------- */
+  .note {
+    margin-top: 40px;
+    padding: 18px 20px;
+    background: rgba(240, 160, 75, 0.09);
+    border: 1px solid rgba(240, 160, 75, 0.3);
+    border-radius: 12px;
+    font-size: 14.5px;
+  }
+
+  .note h3 { font-size: 15px; margin-bottom: 8px; }
+  .note p + p { margin-top: 9px; }
+  .note strong { color: var(--accent); }
+
+  h2 {
+    margin-top: 52px;
+    margin-bottom: 16px;
+    font-size: 21px;
+  }
+
+  .features { list-style: none; display: grid; gap: 12px; }
+
+  .features li {
+    padding: 15px 18px;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    font-size: 15px;
+  }
+
+  .features b { display: block; margin-bottom: 2px; }
+  .features span { color: var(--text-dim); font-size: 14px; }
+
+  pre {
+    background: rgba(0, 0, 0, 0.38);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 16px 18px;
+    overflow-x: auto;
+    font-size: 14px;
+  }
+
+  code { font-family: Consolas, 'SF Mono', Menlo, monospace; }
+
+  footer {
+    margin-top: 56px;
+    padding-top: 24px;
+    border-top: 1px solid var(--border);
+    text-align: center;
+    font-size: 14px;
+    color: var(--text-dim);
+  }
+
+  a { color: var(--accent); }
+
+  @media (max-width: 540px) {
+    .wrap { padding: 44px 18px 60px; }
+    h1 { font-size: 32px; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="hero">
+    <img class="icon" src="icon.png" alt="" width="112" height="112" />
+    <h1>Desktop Pet</h1>
+    <p class="tagline">
+      A small animated pet that floats over your whole desktop. Pick one, name it,
+      and it'll keep you company while you work.
+    </p>
+
+    <a class="download" href="https://github.com/kokoronoka/desktopPet/releases/latest">
+      Download for Windows
+    </a>
+    <p class="meta">Windows 10 / 11 · 64-bit · free &amp; open source</p>
+  </header>
+
+  <div class="note">
+    <h3>⚠️ Before you install</h3>
+    <p>
+      This app isn't code-signed (certificates cost money), so Windows will be
+      suspicious of it. <strong>SmartScreen</strong> shows "Windows protected
+      your PC" — click <strong>More info → Run anyway</strong>.
+    </p>
+    <p>
+      If you see <strong>"An Application Control policy has blocked this
+      file"</strong>, that's Smart App Control, which blocks all unsigned apps.
+      You'd need to turn it off in Windows Security → App &amp; browser control,
+      or run from source instead.
+    </p>
+  </div>
+
+  <h2>What it does</h2>
+  <ul class="features">
+    <li>
+      <b>Pick a pet and name it</b>
+      <span>A cat, dog, or bunny — choose on the setup screen and give them a name. Rename any time from the tray.</span>
+    </li>
+    <li>
+      <b>Floats over everything</b>
+      <span>Transparent and always on top, and you can click straight through to whatever's behind it.</span>
+    </li>
+    <li>
+      <b>Drag it anywhere</b>
+      <span>Pick your pet up and drop it wherever you like. It remembers the spot next time you open the app.</span>
+    </li>
+    <li>
+      <b>Pet it</b>
+      <span>Click for a happy bounce, and hover to see their name.</span>
+    </li>
+    <li>
+      <b>Wanders on its own</b>
+      <span>Every so often it takes a short walk across your screen, turning around at the edges.</span>
+    </li>
+    <li>
+      <b>Lives in your system tray</b>
+      <span>Hide it, change pets, or quit from the tray icon — it stays out of your taskbar.</span>
+    </li>
+  </ul>
+
+  <h2>Prefer to run from source?</h2>
+  <p style="color: var(--text-dim); margin-bottom: 14px; font-size: 15px;">
+    Needs <a href="https://nodejs.org">Node.js</a>. No installer, no warnings.
+  </p>
+<pre><code>git clone https://github.com/kokoronoka/desktopPet.git
+cd desktopPet
+npm install
+npm start</code></pre>
+
+  <footer>
+    <a href="https://github.com/kokoronoka/desktopPet">View the source on GitHub</a>
+    · MIT licensed · Built with Electron
+  </footer>
+
+</div>
+</body>
+</html>

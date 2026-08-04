@@ -1,6 +1,9 @@
 node_modules/
 dist/
 
+# Local editor/tooling settings
+.claude/
+
 # Local Electron/electron-builder caches
 .cache/
 
