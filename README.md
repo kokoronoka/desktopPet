@@ -3,6 +3,8 @@
 A small animated pet that floats over your whole desktop — transparent,
 frameless, always-on-top — built with Electron + plain HTML/CSS/JS.
 
+**Download page: https://kokoronoka.github.io/desktopPet/**
+
 ## Install (for users)
 
 Grab `DesktopPet-Setup-x.y.z.exe` from the
@@ -126,6 +128,16 @@ Authenticode certificate (an OV cert is a few hundred USD/year; EV clears
 SmartScreen immediately). Once you have one, add `WIN_CSC_LINK` (base64 of the
 `.pfx`) and `WIN_CSC_KEY_PASSWORD` as repository secrets — electron-builder
 picks them up with no config change.
+
+### The download page
+
+`docs/index.html` is the public landing page served by GitHub Pages at
+https://kokoronoka.github.io/desktopPet/. Its Download button always points at
+`releases/latest`, so it needs no edits when you publish a new version.
+
+For it to be served, Pages must be set to the `/docs` folder:
+**Settings → Pages → Source: Deploy from a branch → Branch: `main`, folder:
+`/docs`**. (With the source set to `/` root, GitHub renders README.md instead.)
 
 ### Icons
 
