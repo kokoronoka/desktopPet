@@ -1,0 +1,115 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+html, body {
+  width: 100%;
+  height: 100%;
+  background: transparent;
+  overflow: hidden;
+  font-family: -apple-system, 'Segoe UI', sans-serif;
+  cursor: default;
+}
+
+.hidden {
+  display: none !important;
+}
+
+/* ---------- Pet stage ---------- */
+.pet-stage {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  padding-bottom: 16px;
+}
+
+/* ---------- Nametag ---------- */
+/* Kept out of the desktop's way: only fades in on hover or interaction. */
+.nametag {
+  position: absolute;
+  bottom: 118px;
+  left: 50%;
+  transform: translate(-50%, 6px);
+  max-width: 92%;
+  padding: 5px 11px;
+  background: rgba(20, 20, 30, 0.86);
+  border-radius: 999px;
+  color: #fff;
+  font-size: 12px;
+  font-weight: 600;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.35);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.22s ease, transform 0.22s ease;
+}
+
+.nametag.visible {
+  opacity: 1;
+  transform: translate(-50%, 0);
+}
+
+/* Facing direction only — flipped to -1 when the pet walks left. */
+.pet {
+  font-size: 90px;
+  line-height: 1;
+  cursor: grab;
+  transform: scaleX(var(--facing, 1));
+  transition: transform 0.12s ease;
+}
+
+.pet:active {
+  cursor: grabbing;
+}
+
+/* State animations live on the inner sprite so they never clobber facing. */
+.pet-sprite {
+  display: block;
+  transform-origin: bottom center;
+}
+
+/* Idle: gentle breathing bob */
+.pet-sprite.idle {
+  animation: idle-bob 2.2s ease-in-out infinite;
+}
+
+@keyframes idle-bob {
+  0%, 100% { transform: translateY(0) scaleY(1); }
+  50% { transform: translateY(-4px) scaleY(1.03); }
+}
+
+/* Walk: side-to-side waddle while the main process moves the window */
+.pet-sprite.walking {
+  animation: walk-waddle 0.45s ease-in-out infinite;
+}
+
+@keyframes walk-waddle {
+  0%, 100% { transform: rotate(-5deg) translateY(0); }
+  50% { transform: rotate(5deg) translateY(-3px); }
+}
+
+/* Being dragged: hangs still, slightly squashed */
+.pet-sprite.dragging {
+  transform: scale(1.05, 0.95);
+}
+
+/* Click/pet reaction: happy bounce */
+.pet-sprite.happy {
+  animation: happy-bounce 0.45s ease-out;
+}
+
+@keyframes happy-bounce {
+  0% { transform: scale(1) translateY(0); }
+  30% { transform: scale(1.25, 0.85) translateY(6px); }
+  60% { transform: scale(0.9, 1.15) translateY(-16px); }
+  100% { transform: scale(1) translateY(0); }
+}

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <!-- Everything is local; no remote code or assets are ever loaded. -->
+  <meta http-equiv="Content-Security-Policy"
+        content="default-src 'self'; script-src 'self'; style-src 'self'" />
+  <title>Desktop Pet</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- Choosing and naming the pet happens on the setup page (setup.html),
+       which opens in its own normal window. This window is only the pet. -->
+  <div id="pet-stage" class="pet-stage">
+    <!-- Sits outside #pet so the facing flip never mirrors the text. -->
+    <div id="nametag" class="nametag"></div>
+
+    <!-- #pet carries the facing direction, .pet-sprite carries the state
+         animation, so the two transforms don't overwrite each other. -->
+    <div id="pet" class="pet">
+      <span id="pet-sprite" class="pet-sprite idle"></span>
+    </div>
+  </div>
+
+  <script src="renderer.js"></script>
+</body>
+</html>

@@ -1,0 +1,10 @@
+node_modules/
+dist/
+
+# Local Electron/electron-builder caches
+.cache/
+
+# OS noise
+Thumbs.db
+Desktop.ini
+.DS_Store

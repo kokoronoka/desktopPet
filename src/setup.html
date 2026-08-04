@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="Content-Security-Policy"
+        content="default-src 'self'; script-src 'self'; style-src 'self'" />
+  <title>Desktop Pet — Choose your pet</title>
+  <link rel="stylesheet" href="setup.css" />
+</head>
+<body>
+  <main class="page">
+    <header class="header">
+      <h1 class="title">Choose your pet</h1>
+      <p class="subtitle">Pick a companion and give them a name. They'll float on your desktop.</p>
+    </header>
+
+    <div class="pet-grid" role="radiogroup" aria-label="Choose your pet">
+      <button class="pet-card" type="button" role="radio" aria-checked="false"
+              data-pet="cat" data-suggestion="Mochi">
+        <span class="pet-emoji">🐱</span>
+        <span class="pet-name">Cat</span>
+      </button>
+      <button class="pet-card" type="button" role="radio" aria-checked="false"
+              data-pet="dog" data-suggestion="Biscuit">
+        <span class="pet-emoji">🐶</span>
+        <span class="pet-name">Dog</span>
+      </button>
+      <button class="pet-card" type="button" role="radio" aria-checked="false"
+              data-pet="bunny" data-suggestion="Clover">
+        <span class="pet-emoji">🐰</span>
+        <span class="pet-name">Bunny</span>
+      </button>
+    </div>
+
+    <div class="name-field">
+      <label class="field-label" for="pet-name-input">Name</label>
+      <input id="pet-name-input" class="name-input" type="text" maxlength="20"
+             placeholder="Give them a name" autocomplete="off" spellcheck="false" />
+    </div>
+
+    <p id="preview" class="preview" aria-live="polite">Pick a pet to get started.</p>
+
+    <button id="confirm" class="confirm" type="button" disabled>Let's go</button>
+  </main>
+
+  <script src="setup.js"></script>
+</body>
+</html>
